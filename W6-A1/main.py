@@ -1,3 +1,4 @@
+import re
 import requests
 from bs4 import BeautifulSoup
 
@@ -7,8 +8,6 @@ HEADERS = {
     "User-Agent": "FlyRankInternPracticeBot/1.0 (Educational scraping exercise; contact: salamlakhan7@gmail.com)"
 }
 
-# The site encodes star ratings as a CSS class name instead of a number.
-# We map the word to an int so our structured data is actually usable.
 RATING_WORDS = {"One": 1, "Two": 2, "Three": 3, "Four": 4, "Five": 5}
 
 
@@ -25,15 +24,10 @@ def parse_book_listing(html: str):
 
 def extract_book(book_element) -> dict:
     title = book_element.h3.a["title"]
-
     price_raw = book_element.find("p", class_="price_color").text
-
     availability = book_element.find("p", class_="instock availability").text.strip()
-
-    # The rating classes look like "star-rating Three" - the word is the second class.
     rating_classes = book_element.find("p", class_="star-rating")["class"]
     rating_word = rating_classes[1] if len(rating_classes) > 1 else None
-
     detail_link = book_element.h3.a["href"]
 
     return {
@@ -45,12 +39,39 @@ def extract_book(book_element) -> dict:
     }
 
 
+def clean_price(price_raw: str) -> float:
+    # Strip anything that isn't a digit or a decimal point.
+    # This handles the "Â£" encoding artifact and any real currency symbol
+    # the same way, without needing to guess every possible encoding issue.
+    digits_only = re.sub(r"[^\d.]", "", price_raw)
+    return float(digits_only)
+
+
+def clean_availability(availability_raw: str) -> bool:
+    return "in stock" in availability_raw.lower()
+
+
+def clean_rating(rating_word: str) -> int:
+    return RATING_WORDS.get(rating_word, 0)
+
+
+def clean_book(raw_book: dict) -> dict:
+    return {
+        "title": raw_book["title"],
+        "price": clean_price(raw_book["price_raw"]),
+        "in_stock": clean_availability(raw_book["availability_raw"]),
+        "rating": clean_rating(raw_book["rating_word"]),
+        "detail_link": raw_book["detail_link"],
+    }
+
+
 if __name__ == "__main__":
     html = fetch_page(BASE_URL)
     books = parse_book_listing(html)
     print(f"Found {len(books)} books on this page\n")
 
     extracted = [extract_book(book) for book in books]
+    cleaned = [clean_book(book) for book in extracted]
 
-    for item in extracted[:3]:
+    for item in cleaned[:3]:
         print(item)
