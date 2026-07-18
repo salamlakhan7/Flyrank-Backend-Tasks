@@ -1,9 +1,8 @@
 import requests
+from bs4 import BeautifulSoup
 
 BASE_URL = "https://books.toscrape.com/"
 
-# Identifying ourselves honestly is part of being a polite scraper -
-# a real site owner should be able to see who's hitting their server and why.
 HEADERS = {
     "User-Agent": "FlyRankInternPracticeBot/1.0 (Educational scraping exercise; contact: salamlakhan7@gmail.com)"
 }
@@ -15,7 +14,16 @@ def fetch_page(url: str) -> str:
     return response.text
 
 
+def parse_book_listing(html: str):
+    soup = BeautifulSoup(html, "html.parser")
+    books = soup.find_all("article", class_="product_pod")
+    return books
+
+
 if __name__ == "__main__":
     html = fetch_page(BASE_URL)
-    print(f"Fetched {len(html)} characters")
-    print(html[:500])
+    books = parse_book_listing(html)
+    print(f"Found {len(books)} books on this page")
+
+    first_book = books[0]
+    print(first_book.prettify())
