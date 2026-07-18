@@ -1,3 +1,4 @@
+import json
 import re
 import requests
 from bs4 import BeautifulSoup
@@ -9,6 +10,8 @@ HEADERS = {
 }
 
 RATING_WORDS = {"One": 1, "Two": 2, "Three": 3, "Four": 4, "Five": 5}
+
+OUTPUT_FILE = "books.json"
 
 
 def fetch_page(url: str) -> str:
@@ -40,9 +43,6 @@ def extract_book(book_element) -> dict:
 
 
 def clean_price(price_raw: str) -> float:
-    # Strip anything that isn't a digit or a decimal point.
-    # This handles the "Â£" encoding artifact and any real currency symbol
-    # the same way, without needing to guess every possible encoding issue.
     digits_only = re.sub(r"[^\d.]", "", price_raw)
     return float(digits_only)
 
@@ -61,17 +61,22 @@ def clean_book(raw_book: dict) -> dict:
         "price": clean_price(raw_book["price_raw"]),
         "in_stock": clean_availability(raw_book["availability_raw"]),
         "rating": clean_rating(raw_book["rating_word"]),
-        "detail_link": raw_book["detail_link"],
+        "detail_link": BASE_URL + raw_book["detail_link"],
     }
+
+
+def save_books(books: list[dict], path: str) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(books, f, indent=2, ensure_ascii=False)
 
 
 if __name__ == "__main__":
     html = fetch_page(BASE_URL)
     books = parse_book_listing(html)
-    print(f"Found {len(books)} books on this page\n")
+    print(f"Found {len(books)} books on this page")
 
     extracted = [extract_book(book) for book in books]
     cleaned = [clean_book(book) for book in extracted]
 
-    for item in cleaned[:3]:
-        print(item)
+    save_books(cleaned, OUTPUT_FILE)
+    print(f"Saved {len(cleaned)} books to {OUTPUT_FILE}")
