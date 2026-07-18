@@ -1,9 +1,20 @@
 import json
 import re
+import time
 import requests
 from bs4 import BeautifulSoup
 
 BASE_URL = "https://books.toscrape.com/"
+PAGE_URL_TEMPLATE = "https://books.toscrape.com/catalogue/page-{}.html"
+
+# How many pages to scrape. The full site has 50; we take a handful to
+# prove the pipeline works without hammering a server unnecessarily -
+# the same restraint you'd want on a real, non-practice site.
+PAGES_TO_SCRAPE = 3
+
+# Being a polite scraper means waiting between requests instead of firing
+# them as fast as the network allows. One second is a common, safe default.
+REQUEST_DELAY_SECONDS = 1
 
 HEADERS = {
     "User-Agent": "FlyRankInternPracticeBot/1.0 (Educational scraping exercise; contact: salamlakhan7@gmail.com)"
@@ -12,6 +23,20 @@ HEADERS = {
 RATING_WORDS = {"One": 1, "Two": 2, "Three": 3, "Four": 4, "Five": 5}
 
 OUTPUT_FILE = "books.json"
+
+
+def check_robots_txt() -> None:
+    """Look for robots.txt and report what we find. This site returns a 404
+    for it, meaning there are no published crawling rules - but we still
+    check, because assuming permission without looking is exactly the
+    habit a polite scraper should not have."""
+    robots_url = BASE_URL + "robots.txt"
+    response = requests.get(robots_url, headers=HEADERS, timeout=10)
+    if response.status_code == 404:
+        print(f"No robots.txt found at {robots_url} (404). "
+              f"Proceeding with conservative rate limiting as a fallback.")
+    else:
+        print(f"robots.txt found:\n{response.text}")
 
 
 def fetch_page(url: str) -> str:
@@ -61,7 +86,7 @@ def clean_book(raw_book: dict) -> dict:
         "price": clean_price(raw_book["price_raw"]),
         "in_stock": clean_availability(raw_book["availability_raw"]),
         "rating": clean_rating(raw_book["rating_word"]),
-        "detail_link": BASE_URL + raw_book["detail_link"],
+        "detail_link": "https://books.toscrape.com/catalogue/" + raw_book["detail_link"].removeprefix("catalogue/"),
     }
 
 
@@ -70,13 +95,33 @@ def save_books(books: list[dict], path: str) -> None:
         json.dump(books, f, indent=2, ensure_ascii=False)
 
 
+def scrape_pages(num_pages: int) -> list[dict]:
+    all_books = []
+
+    for page_num in range(1, num_pages + 1):
+        url = BASE_URL if page_num == 1 else PAGE_URL_TEMPLATE.format(page_num)
+        print(f"Fetching page {page_num}: {url}")
+
+        html = fetch_page(url)
+        books_on_page = parse_book_listing(html)
+        extracted = [extract_book(book) for book in books_on_page]
+        cleaned = [clean_book(book) for book in extracted]
+        all_books.extend(cleaned)
+
+        print(f"  -> {len(cleaned)} books extracted")
+
+        if page_num < num_pages:
+            time.sleep(REQUEST_DELAY_SECONDS)
+
+    return all_books
+
+
 if __name__ == "__main__":
-    html = fetch_page(BASE_URL)
-    books = parse_book_listing(html)
-    print(f"Found {len(books)} books on this page")
+    check_robots_txt()
+    print()
 
-    extracted = [extract_book(book) for book in books]
-    cleaned = [clean_book(book) for book in extracted]
+    all_books = scrape_pages(PAGES_TO_SCRAPE)
+    print(f"\nTotal books scraped: {len(all_books)}")
 
-    save_books(cleaned, OUTPUT_FILE)
-    print(f"Saved {len(cleaned)} books to {OUTPUT_FILE}")
+    save_books(all_books, OUTPUT_FILE)
+    print(f"Saved to {OUTPUT_FILE}")
