@@ -1,0 +1,24 @@
+services:
+  redis:
+    image: redis:7
+    restart: always
+
+  app:
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    restart: always
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+
+  worker:
+    build: .
+    command: celery -A celery_app worker --loglevel=info
+    restart: always
+    depends_on:
+      - redis
+    env_file:
+      - .env
