@@ -47,3 +47,15 @@ def flaky_call(self):
             countdown=2 ** self.request.retries,
         )
     return "Succeeded after retries"
+
+
+@celery_app.task(name="always_fails", bind=True, max_retries=2)
+def always_fails(self):
+    """Demo-only task: fails on every attempt, with no successful
+    outcome. Once it exhausts its 2 retries, this is what a job that
+    genuinely can't complete looks like - and it's the case the
+    task_failure signal in alerts.py is watching for."""
+    raise self.retry(
+        exc=Exception(f"This task always fails (attempt {self.request.retries + 1})"),
+        countdown=1,
+    )

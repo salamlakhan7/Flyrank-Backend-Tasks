@@ -15,3 +15,7 @@ celery_app.conf.update(
     result_serializer="json",
     accept_content=["json"],
 )
+
+# Importing this registers the task_failure signal handler defined
+# there - it needs to run once at startup, not be called directly.
+import alerts  # noqa: E402,F401
