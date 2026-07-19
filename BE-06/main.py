@@ -1,6 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+from celery.result import AsyncResult
+
+from celery_app import celery_app
 from tasks import ping, ai_call
 
 app = FastAPI()
@@ -31,3 +34,20 @@ def create_job(job: JobRequest):
     the client is never made to wait for it here."""
     task = ai_call.delay(job.prompt)
     return {"job_id": task.id, "status": "accepted"}
+
+
+@app.get("/jobs/{job_id}")
+def get_job_status(job_id: str):
+    """Lets the client check back later. Celery tracks job state in
+    Redis under the hood - PENDING while queued or running, SUCCESS
+    with the result once done, or FAILURE if it ran out of retries."""
+    result = AsyncResult(job_id, app=celery_app)
+
+    if result.state == "PENDING":
+        return {"job_id": job_id, "status": "pending"}
+    elif result.state == "SUCCESS":
+        return {"job_id": job_id, "status": "success", "result": result.result}
+    elif result.state == "FAILURE":
+        return {"job_id": job_id, "status": "failed", "error": str(result.result)}
+    else:
+        return {"job_id": job_id, "status": result.state.lower()}
