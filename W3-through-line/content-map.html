@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Content Map — latemerge.dev</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1220; --ink:#14181F; --paper:#FAFAF8; --card:#FFFFFF;
+    --gold:#E8A33D; --hair:#E4E3DE; --dim:#6B7280;
+    --green:#3D8F63; --green-bg:#EAF6EF; --amber:#9C6A1E; --amber-bg:#FFF3E0;
+    --mono:'IBM Plex Mono',monospace; --sans:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.6;}
+  .wrap{max-width:920px;margin:0 auto;padding:64px 32px 90px;}
+  .kicker{font-family:var(--mono);font-size:13px;color:var(--gold);margin-bottom:10px;}
+  h1{font-family:var(--mono);font-weight:600;font-size:28px;letter-spacing:-0.01em;margin-bottom:6px;}
+  .lede{color:var(--dim);font-size:14px;max-width:600px;margin-bottom:40px;}
+  section{margin-bottom:44px;}
+  h2{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--navy);
+     text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--hair);}
+
+  .claim-card{
+    background:var(--navy); color:#EDEFF3; border-radius:8px; padding:28px 32px;
+  }
+  .claim-card .tag{font-family:var(--mono); font-size:11px; color:var(--gold); margin-bottom:8px;}
+  .claim-card p{font-family:var(--mono); font-size:19px; font-weight:600; line-height:1.5;}
+
+  .page-block{
+    border:1px solid var(--hair); border-radius:8px; overflow:hidden; margin-bottom:18px; background:var(--card);
+  }
+  .page-head{
+    background:#F0F1F3; padding:12px 20px; display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:13px; font-weight:600;
+  }
+  .page-head .path{color:var(--dim); font-weight:400; font-size:11.5px;}
+  .section-list{padding:16px 20px;}
+  .section-row{
+    display:flex; gap:14px; padding:9px 0; border-bottom:1px solid var(--hair); font-size:13.5px; align-items:baseline;
+  }
+  .section-row:last-child{border-bottom:none;}
+  .order{font-family:var(--mono); font-size:11.5px; color:var(--gold); width:18px; flex-shrink:0;}
+  .section-name{font-weight:600; width:190px; flex-shrink:0;}
+  .section-detail{color:var(--dim);}
+  .cta-strip{
+    background:#FFF7E9; border-top:1px solid var(--gold); padding:10px 20px;
+    font-family:var(--mono); font-size:12px; color:var(--amber); display:flex; justify-content:space-between;
+  }
+  .cta-strip b{color:var(--navy);}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.04em;
+     color:var(--dim); text-align:left; padding:8px 10px; border-bottom:1px solid var(--hair);}
+  td{padding:10px 10px; border-bottom:1px solid var(--hair); vertical-align:top;}
+  .badge{font-family:var(--mono); font-size:10.5px; padding:3px 8px; border-radius:4px; display:inline-block;}
+  .badge.gap{background:var(--amber-bg); color:var(--amber);}
+
+  footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--hair);
+    font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;justify-content:space-between;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">// the through-line — week 3</div>
+  <h1>latemerge.dev — content map &amp; CTAs</h1>
+  <p class="lede">The one-line claim, every page's sections in order, the named call to action on each, and what proof is still missing before this can ship.</p>
+
+  <section>
+    <h2>One-line claim</h2>
+    <div class="claim-card">
+      <div class="tag">chosen from 10 AI-generated options, sharpened by hand</div>
+      <p>"I replace your ops team's manual busywork with pipelines that run without them."</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Content map</h2>
+
+    <div class="page-block">
+      <div class="page-head"><span>1. Hero</span><span class="path">/</span></div>
+      <div class="section-list">
+        <div class="section-row"><span class="order">01</span><span class="section-name">Availability eyebrow</span><span class="section-detail">"Currently taking 2 projects for Q3" — proof of demand, sets urgency</span></div>
+        <div class="section-row"><span class="order">02</span><span class="section-name">Claim headline</span><span class="section-detail">The one-line claim above, stated in full</span></div>
+        <div class="section-row"><span class="order">03</span><span class="section-name">Subhead</span><span class="section-detail">One sentence naming who it's for: e-commerce / agency ops teams</span></div>
+        <div class="section-row"><span class="order">04</span><span class="section-name">Proof diff-card</span><span class="section-detail">Before/after visual — manual process vs. automated result</span></div>
+      </div>
+      <div class="cta-strip"><span>Named CTA:</span><b>"Book a build call →"</b></div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-head"><span>2. Work</span><span class="path">/#work</span></div>
+      <div class="section-list">
+        <div class="section-row"><span class="order">01</span><span class="section-name">Section intro</span><span class="section-detail">"Three teams, three manual processes, gone."</span></div>
+        <div class="section-row"><span class="order">02</span><span class="section-name">Case — Fulfillment sync</span><span class="section-detail">Leads: strongest, most concrete number (~9 hrs/week returned)</span></div>
+        <div class="section-row"><span class="order">03</span><span class="section-name">Case — Reporting pipeline</span><span class="section-detail">Second: a whole recurring task eliminated</span></div>
+        <div class="section-row"><span class="order">04</span><span class="section-name">Case — Billing tool</span><span class="section-detail">Third: unexpected upside ($4k/mo leak found), closes on a surprise</span></div>
+      </div>
+      <div class="cta-strip"><span>Named CTA:</span><b>"See pricing →"</b> (ladders toward the one action)</div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-head"><span>3. About</span><span class="path">/#about</span></div>
+      <div class="section-list">
+        <div class="section-row"><span class="order">01</span><span class="section-name">Terminal intro</span><span class="section-detail">Short, first-person, why-you credibility (7 yrs, prior in-house context)</span></div>
+        <div class="section-row"><span class="order">02</span><span class="section-name">Stack chips</span><span class="section-detail">Node, Python, Postgres, Shopify/Stripe APIs, AWS</span></div>
+      </div>
+      <div class="cta-strip"><span>Named CTA:</span><b>"Get in touch →"</b></div>
+    </div>
+
+    <div class="page-block">
+      <div class="page-head"><span>4. Buy / Contact</span><span class="path">/#buy</span></div>
+      <div class="section-list">
+        <div class="section-row"><span class="order">01</span><span class="section-name">Offer heading</span><span class="section-detail">"One process, gone in 3 weeks"</span></div>
+        <div class="section-row"><span class="order">02</span><span class="section-name">Scope + price</span><span class="section-detail">Fixed scope, starting price, 30-day support window</span></div>
+      </div>
+      <div class="cta-strip"><span>Named CTA:</span><b>"Book a build call →"</b> — the one action</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Still need to gather</h2>
+    <table>
+      <tr><th>Item</th><th>For page</th><th>Status</th></tr>
+      <tr><td>Real screenshot — fulfillment sync dashboard</td><td>Work</td><td><span class="badge gap">Not gathered</span></td></tr>
+      <tr><td>Real screenshot — reporting pipeline / deck</td><td>Work</td><td><span class="badge gap">Not gathered</span></td></tr>
+      <tr><td>Real screenshot — billing tool UI</td><td>Work</td><td><span class="badge gap">Not gathered</span></td></tr>
+      <tr><td>Live demo link or public repo for at least one build</td><td>Work</td><td><span class="badge gap">Not gathered</span></td></tr>
+      <tr><td>Client-confirmed before/after numbers (9 hrs/week, $4k/mo)</td><td>Work</td><td><span class="badge gap">Estimated, not verified</span></td></tr>
+      <tr><td>At least one client testimonial/quote</td><td>Work or Hero</td><td><span class="badge gap">Not gathered</span></td></tr>
+      <tr><td>Real headshot</td><td>About</td><td><span class="badge gap">Not gathered</span></td></tr>
+      <tr><td>Booking link (Calendly or similar) wired to CTA</td><td>Hero, Buy</td><td><span class="badge gap">Not set up</span></td></tr>
+    </table>
+    <p style="margin-top:14px; font-size:12.5px; color:var(--dim);">
+      Note: this FlyRank internship's build-in-progress work is intentionally <b>not</b> listed as a case study above — it isn't client work and isn't finished, so it doesn't belong in the Work section's proof yet.
+    </p>
+  </section>
+
+  <footer>
+    <span>latemerge.dev / content-map</span>
+    <span>week 3 — foundations</span>
+  </footer>
+
+</div>
+</body>
+</html>
