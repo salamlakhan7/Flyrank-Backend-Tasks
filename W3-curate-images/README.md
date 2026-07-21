@@ -41,7 +41,17 @@ This builds directly on `W3-identity-kit`: every generated asset here reuses tha
 
 **Rejected:** `hero-texture-v2-rejected.svg` (circuit-board lines)
 
+| Kept — `hero-texture-v1-accepted.svg` | Rejected — `hero-texture-v2-rejected.svg` |
+|---|---|
+| ![Hero v1 accepted](./hero-texture-v1-accepted.svg) | ![Hero v2 rejected](./hero-texture-v2-rejected.svg) |
+
 **Why:** it's the default "AI/tech" visual cliché — nodes and traces read as generic technology, not as this specific developer's terminal-driven workflow. It doesn't extend the diff/mono language the identity kit already established, so it would sit on the page as a stock texture bolted onto a custom brand rather than a natural extension of it. `v1` (terminal grid + faint command-line text) won because it's legible as *this* brand specifically, not swappable with any other dev portfolio.
+
+## Icon set
+
+![Icon set](./icon-set-accepted.svg)
+
+Four line icons — sync, pipeline, alert, dashboard — one weight, one accent color, held steady across all four so they read as a set rather than four separate choices.
 
 ## Where real beats generated
 
