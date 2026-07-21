@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image Curation — latemerge.dev</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1220; --ink:#14181F; --paper:#FAFAF8; --card:#FFFFFF;
+    --gold:#E8A33D; --hair:#E4E3DE; --dim:#6B7280;
+    --red:#C0483F; --red-bg:#FBEAE8; --green:#3D8F63; --green-bg:#EAF6EF;
+    --mono:'IBM Plex Mono',monospace; --sans:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--sans); line-height:1.6;}
+  .wrap{max-width:900px;margin:0 auto;padding:64px 32px 90px;}
+  .kicker{font-family:var(--mono);font-size:13px;color:var(--gold);margin-bottom:10px;}
+  h1{font-family:var(--mono);font-weight:600;font-size:30px;letter-spacing:-0.01em;margin-bottom:6px;}
+  .lede{color:var(--dim);font-size:14.5px;max-width:600px;margin-bottom:40px;}
+  section{margin-bottom:44px;}
+  h2{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--navy);
+     text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--hair);}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.04em;
+     color:var(--dim); text-align:left; padding:8px 10px; border-bottom:1px solid var(--hair);}
+  td{padding:10px 10px; border-bottom:1px solid var(--hair); vertical-align:top;}
+  .badge{font-family:var(--mono); font-size:10.5px; padding:3px 8px; border-radius:4px; display:inline-block;}
+  .badge.real{background:var(--green-bg); color:var(--green);}
+  .badge.gen{background:#FFF3E0; color:#9C6A1E;}
+
+  .swatch-row{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:14px;}
+  .swatch{width:340px; border-radius:8px; overflow:hidden; border:1px solid var(--hair); background:var(--card);}
+  .swatch img{width:100%; display:block;}
+  .swatch-tag{padding:10px 14px; font-family:var(--mono); font-size:11.5px; display:flex; justify-content:space-between; align-items:center;}
+  .tag-keep{color:var(--green);}
+  .tag-reject{color:var(--red);}
+
+  .icon-strip{border:1px solid var(--hair); border-radius:8px; overflow:hidden;}
+  .icon-strip img{width:100%; display:block;}
+
+  .note-card{
+    border-radius:8px; padding:18px 22px; font-size:13.5px; margin-bottom:12px;
+  }
+  .note-card.reject{background:var(--red-bg); border:1px solid var(--red);}
+  .note-card.real{background:#FFF7E9; border:1px solid var(--gold);}
+  .note-card b{font-family:var(--mono);}
+
+  footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--hair);
+    font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;justify-content:space-between;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">// image curation — week 3</div>
+  <h1>latemerge.dev — final image set</h1>
+  <p class="lede">Every image mapped back to a page, most of them real captures — not generated stand-ins — with the connective-tissue graphics held to one consistent style.</p>
+
+  <section>
+    <h2>Image inventory (mapped to sitemap)</h2>
+    <table>
+      <tr><th>Page</th><th>Image need</th><th>Source</th><th>Status</th></tr>
+      <tr><td>Hero</td><td>Background texture behind the claim</td><td><span class="badge gen">Generated</span></td><td>Keeper — v1 (terminal grid)</td></tr>
+      <tr><td>Work</td><td>Screenshot: fulfillment sync dashboard</td><td><span class="badge real">Real capture</span></td><td>Required — swap in actual dashboard screenshot</td></tr>
+      <tr><td>Work</td><td>Screenshot: client reporting deck</td><td><span class="badge real">Real capture</span></td><td>Required — swap in actual export/report</td></tr>
+      <tr><td>Work</td><td>Screenshot: internal billing tool</td><td><span class="badge real">Real capture</span></td><td>Required — swap in actual product UI</td></tr>
+      <tr><td>Work</td><td>Category icons on each case card</td><td><span class="badge gen">Generated</span></td><td>Keeper — one consistent icon set</td></tr>
+      <tr><td>About</td><td>Headshot / profile photo</td><td><span class="badge real">Real capture</span></td><td>Required — real photo, never generated</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Hero texture — the call</h2>
+    <div class="swatch-row">
+      <div class="swatch">
+        <img src="hero-texture-v1-accepted.svg" alt="Hero texture v1">
+        <div class="swatch-tag"><span>v1 — terminal grid</span><span class="tag-keep">✓ KEEPER</span></div>
+      </div>
+      <div class="swatch">
+        <img src="hero-texture-v2-rejected.svg" alt="Hero texture v2">
+        <div class="swatch-tag"><span>v2 — circuit lines</span><span class="tag-reject">✕ REJECTED</span></div>
+      </div>
+    </div>
+    <div class="note-card reject">
+      <b>Rejected v2 because:</b> the circuit-board motif is the default "AI/tech" cliché — it says
+      "generic technology," not "this specific developer's terminal-driven workflow." It doesn't
+      reference the diff/mono language the rest of the kit already established, so it would read as
+      a stock texture bolted onto a custom brand rather than an extension of it.
+    </div>
+  </section>
+
+  <section>
+    <h2>Icon set — connective tissue</h2>
+    <div class="icon-strip">
+      <img src="icon-set-accepted.svg" alt="Icon set">
+    </div>
+    <p style="font-size:12.5px; color:var(--dim); margin-top:8px; font-family:var(--mono);">
+      sync · pipeline · alert · dashboard — one weight, one accent color, held steady across all four
+    </p>
+  </section>
+
+  <section>
+    <h2>Where real beats generated</h2>
+    <div class="note-card real">
+      <b>About photo:</b> generating a face is off the table entirely — trust is the job of this page,
+      and a real photo is the only thing that does it credibly.<br><br>
+      <b>Work screenshots:</b> the case studies are the proof layer of the whole site. A generated
+      "dashboard mockup" would look like a template; a real screenshot — even a slightly rough one —
+      signals the work actually happened. Real beats polished here.
+    </div>
+  </section>
+
+  <footer>
+    <span>latemerge.dev / image-curation</span>
+    <span>week 3 — foundations</span>
+  </footer>
+
+</div>
+</body>
+</html>

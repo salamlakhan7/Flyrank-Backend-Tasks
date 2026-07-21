@@ -1,0 +1,13 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="400" fill="#0B1220"/>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1B2740" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="400" fill="url(#grid)"/>
+  <line x1="0" y1="120" x2="800" y2="120" stroke="#E8A33D" stroke-width="1" opacity="0.25"/>
+  <line x1="0" y1="280" x2="800" y2="280" stroke="#E8A33D" stroke-width="1" opacity="0.15"/>
+  <text x="40" y="80" font-family="IBM Plex Mono, monospace" font-size="13" fill="#E8A33D" opacity="0.5">$ deploy --env production</text>
+  <text x="40" y="360" font-family="IBM Plex Mono, monospace" font-size="13" fill="#4FAE7B" opacity="0.4">✓ sync complete — 0 errors</text>
+</svg>
